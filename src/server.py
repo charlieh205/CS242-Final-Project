@@ -101,7 +101,6 @@ class Server(object):
                     weights = torch.cat((weights, self._calc_weights(round_clients).unsqueeze(0)))
                 decay = weight_decay ** torch.arange(len(weights)).flip(0)
                 avg_weights = torch.sum(decay.unsqueeze(1) * weights, 0) / decay.sum()
-                avg_weights *= torch.Tensor([1, 1, 4/3, 4/3]) # TODO: ask about this
                 new_global_model = self._average_model(round_clients, weights=avg_weights)
                 for c in self.clients:
                     c.net.load_state_dict(new_global_model)
@@ -115,5 +114,5 @@ class Server(object):
                     for j, group in enumerate(self.groups):
                         pbar.set_description(f"{pbar_desc} (Testing group {j + 1}/{len(self.groups)})\t\t")
                         group[0].test()
-            print(f"Avg:\n{avg_weights}")
-            self._plot()
+        print(f"Avg:\n{avg_weights}")
+        self._plot()
