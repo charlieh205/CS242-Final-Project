@@ -20,6 +20,9 @@ class MNISTNet(torch.nn.Module):
             torch.nn.Sigmoid(),
             torch.nn.Linear(84, 10)
         ).to(device=try_gpu())
+    
+    def forward(self, input):
+        return self.model(input)
 
 
 # convolutional block, used for building CIFARNet
