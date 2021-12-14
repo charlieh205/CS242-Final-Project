@@ -28,3 +28,12 @@ def save_obj(obj, name):
 def load_obj(name):
     file = open(f"checkpoints/{name}.obj", "rb")
     return pickle.load(file)
+
+
+# convolutional block, used for building CIFAR10 net
+def conv_block(in_channels, out_channels, kernel_size=3, stride=1, padding=1):
+    return torch.nn.Sequential(
+        torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=False),
+        torch.nn.BatchNorm2d(out_channels),
+        torch.nn.ReLU(inplace=True)
+    )
