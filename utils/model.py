@@ -19,21 +19,12 @@ def try_gpu(i=0):
 
 
 # save object
-def save_obj(obj, name):
-    file = open(f"checkpoints/{name}.obj", "wb")
+def save_obj(obj, name, dataset_name):
+    file = open(f"checkpoints_{dataset_name}/{name}.obj", "wb")
     pickle.dump(obj, file)
 
 
 # load object
-def load_obj(name):
-    file = open(f"checkpoints/{name}.obj", "rb")
+def load_obj(name, dataset_name):
+    file = open(f"checkpoints_{dataset_name}/{name}.obj", "rb")
     return pickle.load(file)
-
-
-# convolutional block, used for building CIFAR10 net
-def conv_block(in_channels, out_channels, kernel_size=3, stride=1, padding=1):
-    return torch.nn.Sequential(
-        torch.nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=False),
-        torch.nn.BatchNorm2d(out_channels),
-        torch.nn.ReLU(inplace=True)
-    )
