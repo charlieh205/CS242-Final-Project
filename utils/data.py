@@ -41,7 +41,7 @@ def dataset_split(dataset, idxs):
 
 
 # sample from a dataset
-def sampe_dataset(dataset, pct=None, n=None, classes=None):
+def sample_dataset(dataset, pct=None, n=None, classes=None):
     # indices of datapoints that should be sampled from (e.g. by class)
     if not classes:
         idxs = torch.arange(len(dataset))
