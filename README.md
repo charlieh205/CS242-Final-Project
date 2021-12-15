@@ -104,3 +104,15 @@ server = Server(
 )
 server.train(rounds = 50, local_epochs = 5, weighted = True)
 ```
+
+### Saving results
+
+In order to avoid losing any results that may occur when one is away from their computer, we defined a function that allows us to save the server object to disk after it is done training. It can then be loaded later. These functions are located in our utility file [`model.py`](/utils/model.py). To demonstrate, we'll say that we are testing on the MNIST dataset under IID settings using FedWeighted. We can save the final results with the ``save_obj`` function. The first argument is the server object to be save, the second specifies the setting and algorithm used, and the third is the dataset.
+```python
+save_obj(server, "IID_weighted", "MNIST")
+```
+Executing this will create a new directory ``checkpoints_MNIST/``, within which there will be a file ``IID_weighted.obj``. To access this file, we can simply use the ``load_obj`` function with the same last two arguments.
+``python
+server = load_obj("IID_weighted", "MNIST")
+``
+This allows us to load in results at later times for more experimentation and analysis.
