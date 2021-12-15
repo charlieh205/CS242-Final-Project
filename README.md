@@ -65,13 +65,41 @@ server.train(rounds = 50, local_epochs = 5, weighted = True)
 
 ### Non-IID setting - no skew
 
-Next, we'll look at how we perform on non-IID with no skew. This is done in much the same fashion as in the [IID setting](###iid-setting), but our number of clients will be a tuple indicating the number of clients for each class. We will also define our classes for the server.
+Next, we'll look at how we perform on non-IID with no skew. This is done in much the same fashion as in the [IID setting](#iid-setting), but our number of clients will be a tuple indicating the number of clients for each class. We will also define our classes for the server.
 ```python
 server = Server(
     net,
     trainset,
     testset,
     num_clients = (20, 20, 20),
+    classes = ((0, 1, 2, 3), (4, 5, 6), (7, 8, 9))
+)
+server.train(rounds = 50, local_epochs = 5, weighted = True)
+```
+
+### Non-IID setting - some skew
+
+To test on non-IID with some skew, we'll instantiate our server almost identically to that of [non-IID with no skew](#non-iid-setting---no-skew). The only difference is the number of clients that we assign to each class.
+```python
+server = Server(
+    net,
+    trainset,
+    testset,
+    num_clients = (20, 10, 10),
+    classes = ((0, 1, 2, 3), (4, 5, 6), (7, 8, 9))
+)
+server.train(rounds = 50, local_epochs = 5, weighted = True)
+```
+
+### Non-IID setting - extreme skew
+
+Finally, to test on extreme skew, we'll define our server identically to that of [non-IID with some skew](#non-iid-setting---some-skew) but assign an even higher number of clients to the first class.
+```python
+server = Server(
+    net,
+    trainset,
+    testset,
+    num_clients = (40, 10, 10),
     classes = ((0, 1, 2, 3), (4, 5, 6), (7, 8, 9))
 )
 server.train(rounds = 50, local_epochs = 5, weighted = True)
