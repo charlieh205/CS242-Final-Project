@@ -10,17 +10,17 @@ Team members:
 
 ### Directory structure
 
-CS242-Final-Project/
-├── src
-│   ├── client.py
-│   ├── net.py
-│   └── server.py
-├── utils
-│   ├── data.py
-│   └── model.py
-├── .gitignore
-├── README.md
-├── main.ipynb
-├── plot.ipynb
-├── requirements.txt
-└── test.ipynb
+    CS242-Final-Project/
+    ├── src
+    │   ├── client.py
+    │   ├── net.py
+    │   └── server.py
+    ├── utils
+    │   ├── data.py
+    │   └── model.py
+    ├── .gitignore
+    ├── README.md
+    ├── main.ipynb
+    ├── plot.ipynb
+    ├── requirements.txt
+    └── test.ipynb
