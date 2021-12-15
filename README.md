@@ -48,7 +48,11 @@ Next, we'll load our training and test datasets and instantiate our CNN.
 trainset, testset = load_MNIST()
 net = MNISTNet()
 ```
-We're now ready to run our experiments. We first want to see the baseline performance, so we'll instantiate a Server object with our net, training set, test set, and number of clients (60 for this example). To train, we simply call the server's train method and specify the number of rounds that we want (50 for this example).
+We're now ready to run our experiments.
+
+### IID setting
+
+We first want to see the baseline performance, so we'll instantiate a Server object with our net, training set, test set, and number of clients (60 for this example). To train, we simply call the server's train method and specify the number of rounds and local epochs that we want (50 and 5 for this example). **Note: by specifying ``weighted = True``, we indicate that we are using the FedWeighted algorithm. The default of ``weighted = False`` uses FedAvg.**
 ```python
 server = Server(
     net,
@@ -56,5 +60,19 @@ server = Server(
     testset,
     num_clients = 60
 )
-server.train(rounds = 50)
+server.train(rounds = 50, local_epochs = 5, weighted = True)
+```
+
+### Non-IID setting - no skew
+
+Next, we'll look at how we perform on non-IID with no skew. This is done in much the same fashion as in the [IID setting](###iid-setting), but our number of clients will be a tuple indicating the number of clients for each class. We will also define our classes for the server.
+```python
+server = Server(
+    net,
+    trainset,
+    testset,
+    num_clients = (20, 20, 20),
+    classes = ((0, 1, 2, 3), (4, 5, 6), (7, 8, 9))
+)
+server.train(rounds = 50, local_epochs = 5, weighted = True)
 ```
